@@ -1,0 +1,96 @@
+<div class="container mt-3">
+
+    <h4>Formularios <small>Validación de Formularios Reactivos</small></h4>
+    <hr>
+    
+    <!-- Formulario Reactivo -->
+    <form (ngSubmit)="guardar()" [formGroup]="forma">
+  
+      <!-- Campo Nombre -->
+      <div class="col-md-6 mb-3">
+        <label> Nombre</label>
+        <input type="text" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': nombreNoValido, 'is-valid': !nombreNoValido && forma.get('nombre')?.touched}" 
+               formControlName="nombre" 
+               required>
+        <small *ngIf="nombreNoValido" class="text-danger">
+          Error en el campo Nombre
+        </small>
+      </div>
+  
+      <!-- Campo Apellido -->
+      <div class="col-md-6 mb-3">
+        <label>Apellido</label>
+        <input type="text" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': apellidoNoValido, 'is-valid': !apellidoNoValido && forma.get('apellido')?.touched}" 
+               formControlName="apellido" 
+               required>
+        <small *ngIf="apellidoNoValido" class="text-danger">
+          Error en el campo Apellido
+        </small>
+      </div>
+  
+      <!-- Campo Email -->
+      <div class="col-md-6 mb-3">
+        <label>Email</label>
+        <input type="email" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': correoNoValido, 'is-valid': !correoNoValido && forma.get('correo')?.touched}" 
+               formControlName="correo" 
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+               required>
+        <small *ngIf="correoNoValido" class="text-danger">
+          Introduzca un email válido
+        </small>
+      </div>
+  
+      <!-- Campo Password -->
+      <div class="col-md-6 mb-3">
+        <label>Password</label>
+        <input type="password" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': password1NoValido, 'is-valid': !password1NoValido && forma.get('password1')?.touched}" 
+               formControlName="password1" 
+               required>
+        <small *ngIf="password1NoValido" class="text-danger">
+          El campo no debe estar vacío o debe tener al menos 6 caracteres
+        </small>
+      </div>
+  
+      <!-- Confirmar Password -->
+      <div class="col-md-6 mb-3">
+        <label>Confirmar Password</label>
+        <input type="password" 
+               class="form-control" 
+               [ngClass]="{'is-invalid': password2NoValido, 'is-valid': !password2NoValido && forma.get('password2')?.touched}" 
+               formControlName="password2" 
+               required>
+        <small *ngIf="password2NoValido" class="text-danger">
+          Las contraseñas no coinciden
+        </small>
+      </div>
+  
+      <!-- Botón de Enviar -->
+      <div class="col-md-6 mb-3">
+        <button class="btn btn-primary"  [disabled]="forma.invalid" type="submit">Submit form</button>
+      </div>
+  
+    </form>
+  
+    <hr>
+  
+    <!-- Estado del formulario -->
+    <h3 class="mt-5">Formulario</h3>
+    <pre>
+      Estado Formulario: {{ forma.valid }}
+      <br>
+      Status: {{ forma.status }}
+    </pre>
+    <pre>
+      {{ forma.value | json }}
+    </pre>
+  
+  </div>
+  
